@@ -103,10 +103,12 @@ const Navbar = ({
   onOpenCart,
   cartCount,
   setView,
+  onNavigate,
 }: {
   onOpenCart: () => void;
   cartCount: number;
   setView: (v: string) => void;
+  onNavigate: (sectionId: string) => void;
 }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -116,6 +118,11 @@ const Navbar = ({
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleNavClick = (id: string) => {
+    setMobileMenuOpen(false);
+    onNavigate(id);
+  };
 
   return (
     <header
@@ -139,43 +146,43 @@ const Navbar = ({
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex gap-8 text-xs font-semibold uppercase tracking-widest text-[var(--color-brand-ink)]">
-          <a
-            href="#"
-            className="hover:text-[var(--color-brand-accent)] border-b border-[var(--color-brand-accent)] transition-colors"
+        <nav className="hidden md:flex gap-8 text-[11px] font-bold uppercase tracking-widest text-[var(--color-brand-ink)]">
+          <button
+            onClick={() => handleNavClick("new-arrival")}
+            className="hover:text-[var(--color-brand-accent)] border-none transition-colors"
           >
             New Arrival
-          </a>
-          <a
-            href="#"
+          </button>
+          <button
+            onClick={() => handleNavClick("best-seller")}
             className="hover:text-[var(--color-brand-accent)] transition-colors"
           >
             Best Seller
-          </a>
-          <a
-            href="#"
+          </button>
+          <button
+            onClick={() => handleNavClick("sandals")}
             className="hover:text-[var(--color-brand-accent)] transition-colors"
           >
             Sandals
-          </a>
-          <a
-            href="#"
+          </button>
+          <button
+            onClick={() => handleNavClick("heels")}
             className="hover:text-[var(--color-brand-accent)] transition-colors"
           >
             Heels
-          </a>
-          <a
-            href="#"
+          </button>
+          <button
+            onClick={() => handleNavClick("sale")}
             className="hover:text-[var(--color-brand-accent)] transition-colors text-[var(--color-brand-promo)]"
           >
             Sale
-          </a>
-          <a
-            href="#"
+          </button>
+          <button
+            onClick={() => handleNavClick("lookbook")}
             className="hover:text-[var(--color-brand-accent)] transition-colors"
           >
             Lookbook
-          </a>
+          </button>
         </nav>
 
         {/* Icons */}
@@ -219,29 +226,26 @@ const Navbar = ({
               </button>
             </div>
             <nav className="flex flex-col space-y-6 text-xl font-serif text-[var(--color-brand-ink)]">
-              {["New Arrival", "Best Seller", "Sandals", "Heels", "Flats"].map(
-                (item) => (
-                  <a
-                    key={item}
-                    href="#"
-                    className="border-b border-[var(--color-brand-gray)]/20 pb-4 flex justify-between items-center"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {item}{" "}
-                    <ChevronRight
-                      size={20}
-                      className="text-[var(--color-brand-gray)]"
-                    />
-                  </a>
-                ),
-              )}
-              <a
-                href="#"
-                className="border-b border-[var(--color-brand-gray)]/20 pb-4 flex justify-between items-center text-[var(--color-brand-promo)]"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Sale <ChevronRight size={20} />
-              </a>
+              {[
+                { name: "New Arrival", id: "new-arrival" },
+                { name: "Best Seller", id: "best-seller" },
+                { name: "Sandals", id: "sandals" },
+                { name: "Heels", id: "heels" },
+                { name: "Sale", id: "sale" },
+                { name: "Lookbook", id: "lookbook" }
+              ].map((item) => (
+                <button
+                  key={item.name}
+                  className={`border-b border-[var(--color-brand-gray)]/20 pb-4 flex justify-between items-center ${item.id === 'sale' ? 'text-[var(--color-brand-promo)]' : ''}`}
+                  onClick={() => handleNavClick(item.id)}
+                >
+                  {item.name}{" "}
+                  <ChevronRight
+                    size={20}
+                    className="text-[var(--color-brand-gray)]"
+                  />
+                </button>
+              ))}
             </nav>
             <div className="mt-auto pt-10">
               <Button variant="outline" className="w-full justify-center mb-4">
@@ -1105,10 +1109,110 @@ const CartDrawer = ({
   );
 };
 
+// --- Pages ---
+
+const CategoryPage = ({ category, onSelectProduct }: { category: string, onSelectProduct: (p: Product) => void }) => {
+  let filteredProducts = products;
+  let title = "Koleksi";
+  let desc = "";
+
+  if (category === 'new-arrival') {
+    title = "New Arrival";
+    desc = "Koleksi terbaru untuk langkah penuh gaya.";
+    filteredProducts = products.filter(p => p.badges.includes("New") || p.badges.includes("Limited Drop"));
+  } else if (category === 'best-seller') {
+    title = "Best Seller";
+    desc = "Produk favorit pilihan pelanggan kami.";
+    filteredProducts = products.filter(p => p.badges.includes("Best Seller"));
+  } else if (category === 'sandals') {
+    title = "Sandals";
+    desc = "Kenyamanan kasual untuk setiap hari.";
+    filteredProducts = products.filter(p => p.name.includes("Sandals") || p.name.includes("Slides") || p.name.includes("Flats"));
+  } else if (category === 'heels') {
+    title = "Heels";
+    desc = "Elegansi ekstra untuk momen spesial.";
+    filteredProducts = products.filter(p => p.name.includes("Heels"));
+  } else if (category === 'sale') {
+    title = "Sale";
+    desc = "Penawaran eksklusif dengan harga spesial.";
+    filteredProducts = products.filter(p => !!p.originalPrice || p.badges.some(b => b.includes("OFF")));
+  }
+
+  // Scroll to top on mount
+  useEffect(() => { window.scrollTo(0,0); }, [category]);
+
+  return (
+    <div className="bg-[var(--color-brand-bg)] min-h-screen py-16 px-4 md:px-10 max-w-[1440px] mx-auto animate-in fade-in duration-500">
+      <div className="text-center mb-16">
+         <h1 className="font-serif text-4xl md:text-5xl font-light italic mb-4">{title}</h1>
+         <p className="text-[var(--color-brand-gray)] text-sm">{desc}</p>
+      </div>
+      {filteredProducts.length > 0 ? (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-8">
+           {filteredProducts.map((product) => (
+             <ProductCard key={product.id} product={product} onClick={() => onSelectProduct(product)} />
+           ))}
+        </div>
+      ) : (
+        <div className="text-center py-20 text-[var(--color-brand-gray)] font-sans text-sm">
+          Koleksi tidak ditemukan.
+        </div>
+      )}
+    </div>
+  );
+};
+
+const LookbookPage = ({ onSelectProduct }: { onSelectProduct: (p: Product) => void }) => {
+  // Scroll to top on mount
+  useEffect(() => { window.scrollTo(0,0); }, []);
+
+  const looks = [
+    { id: 1, title: "City Stroll", img: "https://images.unsplash.com/photo-1603487742131-4160ec999306?auto=format&fit=crop&q=80&w=800", desc: "Paduan desain minimal dengan warna natural.", product: products[0] },
+    { id: 2, title: "Weekend Coffee", img: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&q=80&w=800", desc: "Nyaman untuk bersantai namun tetap modis.", product: products[1] },
+    { id: 3, title: "Resort Escape", img: "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&q=80&w=800", desc: "Nuansa liburan dengan sentuhan elegan.", product: products[3] },
+    { id: 4, title: "Office Chic", img: "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&q=80&w=800", desc: "Transisi mudah dari pagi ke malam.", product: products[2] }
+  ];
+
+  return (
+    <div className="bg-[var(--color-brand-bg)] min-h-screen py-16 px-4 md:px-10 max-w-[1440px] mx-auto animate-in fade-in duration-500">
+      <div className="text-center mb-16 flex flex-col items-center">
+         <h1 className="font-serif text-4xl md:text-5xl font-light italic mb-4">Lookbook</h1>
+         <p className="text-[var(--color-brand-gray)] text-[11px] uppercase tracking-widest max-w-[400px] leading-relaxed mb-6">Inspirasi gaya dari komunitas kami. Eksplorasi berbagai padu padan elegan dengan Sorella Steps.</p>
+         <div className="w-12 h-[1px] bg-[var(--color-brand-gray)]/40"></div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16">
+        {looks.map((look) => (
+          <div key={look.id} className="group cursor-pointer" onClick={() => onSelectProduct(look.product)}>
+            <div className="aspect-[3/4] overflow-hidden mb-6 bg-[#FAF7F1]">
+              <img
+                src={look.img}
+                alt={look.title}
+                className="w-full h-full object-cover group-hover:opacity-90 group-hover:scale-105 transition-all duration-700 ease-out"
+              />
+            </div>
+            <div className="text-center">
+              <h3 className="font-serif text-2xl italic mb-2 text-[var(--color-brand-ink-light)]">{look.title}</h3>
+              <p className="text-[var(--color-brand-gray)] text-[11px] tracking-widest uppercase mb-4 font-medium">
+                {look.desc}
+              </p>
+              <span className="text-[10px] font-bold uppercase tracking-widest border-b border-[var(--color-brand-ink-light)] pb-0.5 group-hover:text-[var(--color-brand-accent)] group-hover:border-[var(--color-brand-accent)] transition-colors">
+                Shop The Look
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 // --- Main App ---
 
 export default function App() {
-  const [view, setView] = useState<"home" | "product">("home");
+  const [view, setView] = useState<
+    "home" | "product" | "new-arrival" | "best-seller" | "sandals" | "heels" | "sale" | "lookbook"
+  >("home");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   const [cartOpen, setCartOpen] = useState(false);
@@ -1129,6 +1233,10 @@ export default function App() {
 
   const currentCount = cartItems.length;
 
+  const handleNavigate = (path: string) => {
+    setView(path as any);
+  };
+
   return (
     <div className="min-h-screen bg-[var(--color-brand-bg)] text-[var(--color-brand-ink)] font-sans antialiased selection:bg-[var(--color-brand-accent)] selection:text-white">
       <PromoBanner />
@@ -1139,6 +1247,7 @@ export default function App() {
         setView={(v) => {
           if (v === "home") setView("home");
         }}
+        onNavigate={handleNavigate}
       />
 
       {view === "home" && (
@@ -1148,10 +1257,16 @@ export default function App() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <Hero />
-          <CampaignTiles onQuickView={handleProductSelect} />
-          <ProductSection onSelectProduct={handleProductSelect} />
-          <Lookbook />
+          <div>
+            <Hero />
+            <CampaignTiles onQuickView={handleProductSelect} />
+          </div>
+          <div>
+            <ProductSection onSelectProduct={handleProductSelect} />
+          </div>
+          <div>
+            <Lookbook />
+          </div>
 
           <section className="py-24 bg-[#111111] text-white text-center px-4">
              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
@@ -1165,6 +1280,14 @@ export default function App() {
           <Reviews />
           <TrustSection />
         </motion.main>
+      )}
+
+      {["new-arrival", "best-seller", "sandals", "heels", "sale"].includes(view) && (
+        <CategoryPage category={view} onSelectProduct={handleProductSelect} />
+      )}
+
+      {view === "lookbook" && (
+        <LookbookPage onSelectProduct={handleProductSelect} />
       )}
 
       {view === "product" && selectedProduct && (
