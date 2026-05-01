@@ -33,9 +33,9 @@ export const products: Product[] = [
     color: "Ivory",
     colors: ["#F5F5F0", "#E8D8C3"],
     image:
-      "https://images.unsplash.com/photo-1596910547037-84611e15faec?w=800&q=80",
+      "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&q=80",
     hoverImage:
-      "https://images.unsplash.com/photo-1621215381205-0aa91b1a7d66?w=800&q=80",
+      "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=800&q=80",
     badges: ["Limited Drop"],
     description:
       "Effortless slip-ons crafted from ultra-soft material for extreme comfort without sacrificing style.",
@@ -48,9 +48,9 @@ export const products: Product[] = [
     color: "Black",
     colors: ["#111111", "#5B5B5B"],
     image:
-      "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&q=80",
+      "https://images.unsplash.com/photo-1600857062241-98e5dba7f214?w=800&q=80",
     hoverImage:
-      "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=800&q=80",
+      "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=800&q=80",
     badges: ["10% OFF"],
     description:
       "Minimalist flats that go with almost anything. Ideal for transitioning from office hours to evening walks.",
@@ -62,9 +62,9 @@ export const products: Product[] = [
     color: "Tan Brown",
     colors: ["#8A5A3C", "#E8D8C3"],
     image:
-      "https://images.unsplash.com/photo-1582585465225-83c316ba9ff4?w=800&q=80",
+      "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?w=800&q=80",
     hoverImage:
-      "https://images.unsplash.com/photo-1600857062241-98e5dba7f214?w=800&q=80",
+      "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=800&q=80",
     badges: [],
     description:
       "Warm breeze, easy steps. Sora is designed for your holiday edit.",
@@ -76,9 +76,9 @@ export const products: Product[] = [
     color: "Cream Gold",
     colors: ["#EBE6DD", "#D4AF37"],
     image:
-      "https://images.unsplash.com/photo-1547012351-51de84eb92cd?w=800&q=80",
+      "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&q=80",
     hoverImage:
-      "https://images.unsplash.com/photo-1515347619152-73a70ba5e01f?w=800&q=80",
+      "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=800&q=80",
     badges: ["Best Seller"],
     description:
       "Low-height heels with an exceptionally soft insole. Elegant styling made for long days.",
@@ -90,9 +90,9 @@ export const products: Product[] = [
     color: "Mocha",
     colors: ["#6B5145", "#111111"],
     image:
-      "https://images.unsplash.com/photo-1603487742131-4160ec999306?w=800&q=80",
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80",
     hoverImage:
-      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800&q=80",
+      "https://images.unsplash.com/photo-1603487742131-4160ec999306?w=800&q=80",
     badges: [],
     description:
       "Signature crossover straps. Provides excellent lockdown combined with a minimalist look.",
@@ -104,9 +104,9 @@ export const products: Product[] = [
     color: "Olive",
     colors: ["#5A5A40", "#111111", "#E8D8C3"],
     image:
-      "https://images.unsplash.com/photo-1596910547037-84611e15faec?w=800&q=80",
+      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800&q=80",
     hoverImage:
-      "https://images.unsplash.com/photo-1621215381205-0aa91b1a7d66?w=800&q=80",
+      "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&q=80",
     badges: [],
     description:
       "Everyday utility meets feminine aesthetics. Olive tones for a natural edge.",
@@ -118,9 +118,9 @@ export const products: Product[] = [
     color: "White",
     colors: ["#FFFFFF", "#111111"],
     image:
-      "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&q=80",
-    hoverImage:
       "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=800&q=80",
+    hoverImage:
+      "https://images.unsplash.com/photo-1600857062241-98e5dba7f214?w=800&q=80",
     badges: ["New"],
     description:
       "Pure aesthetic. The Rumi flats utilize a seamless construction to prevent rubbing or blisters.",

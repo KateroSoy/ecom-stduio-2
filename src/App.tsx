@@ -308,7 +308,7 @@ const CampaignTiles = ({
       title: "Ringan & Effortless",
       desc: "Material halus dan sol empuk.",
       product: products[1],
-      img: "https://images.unsplash.com/photo-1621215381205-0aa91b1a7d66?auto=format&fit=crop&q=80&w=800",
+      img: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&q=80&w=800",
       layout: "aspect-[3/4] md:aspect-square",
     },
   ];
@@ -326,7 +326,7 @@ const CampaignTiles = ({
             className={`group cursor-pointer bg-white relative overflow-hidden flex flex-col ${tile.layout}`}
             onClick={() => onQuickView(tile.product)}
           >
-            <div className="absolute inset-0 bg-cover bg-center opacity-90 transition-transform duration-700 group-hover:scale-105" style={{backgroundImage: `url(${tile.img})`}}></div>
+            <div className="absolute inset-0 bg-cover bg-center opacity-90 transition-transform duration-700 group-hover:scale-105" style={{backgroundImage: `url('${tile.img}')`}}></div>
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80"></div>
             <div className="absolute inset-x-0 bottom-0 p-8 md:p-12 text-white flex flex-col items-start z-10 transition-transform duration-500 transform translate-y-2 group-hover:translate-y-0">
               <h3 className="font-serif text-2xl md:text-3xl font-light italic mb-2">
@@ -369,8 +369,8 @@ const ProductCard = ({
           </div>
       )}
       {/* Images */}
-      <div className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform group-hover:scale-105 z-0" style={{backgroundImage: `url(${product.image})`}}></div>
-      <div className="absolute inset-0 w-full h-full bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity z-10" style={{backgroundImage: `url(${product.hoverImage})`}}></div>
+      <div className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform group-hover:scale-105 z-0" style={{backgroundImage: `url('${product.image}')`}}></div>
+      <div className="absolute inset-0 w-full h-full bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity z-10" style={{backgroundImage: `url('${product.hoverImage}')`}}></div>
 
       {/* Quick Add Overlay */}
       <div className="absolute bottom-0 left-0 right-0 p-3 bg-white/90 translate-y-full group-hover:translate-y-0 transition-transform text-center text-[9px] font-bold uppercase z-20 flex items-center justify-center hover:bg-[var(--color-brand-ink-light)] hover:text-white">
@@ -485,7 +485,7 @@ const Lookbook = () => (
           >
             <div className="aspect-[3/4] overflow-hidden mb-4 bg-[#FAF7F1]">
               <img
-                src={`https://images.unsplash.com/photo-${i === 1 ? "1603487742131-4160ec999306" : i === 2 ? "1543163521-1bf539c55dd2" : "1582585465225-83c316ba9ff4"}?auto=format&fit=crop&q=80&w=600`}
+                src={`https://images.unsplash.com/photo-${i === 1 ? "1603487742131-4160ec999306" : i === 2 ? "1543163521-1bf539c55dd2" : "1549298916-b41d501d3772"}?auto=format&fit=crop&q=80&w=600`}
                 alt="Lookbook"
                 className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
               />
